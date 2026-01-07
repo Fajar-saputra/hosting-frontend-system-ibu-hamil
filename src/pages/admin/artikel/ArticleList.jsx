@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
 const ArticleList = () => {
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -11,7 +13,7 @@ const ArticleList = () => {
     // =========================
     const fetchArticles = async () => {
         try {
-            const { data } = await axios.get("http://localhost:5000/api/articles");
+            const { data } = await axios.get(`${API_BASE}/api/articles`);
             setArticles(data);
         } catch (error) {
             console.error(error);

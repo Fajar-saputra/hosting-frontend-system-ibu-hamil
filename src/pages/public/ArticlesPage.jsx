@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
 const ArticlesPage = () => {
     const [articles, setArticles] = useState([]);
     const [currentArticle, setCurrentArticle] = useState(null);
@@ -11,7 +13,7 @@ const ArticlesPage = () => {
     // 1. Fetch daftar judul untuk Sidebar Kiri
     useEffect(() => {
         const fetchArticles = async () => {
-            const { data } = await axios.get("http://localhost:5000/api/articles");
+            const { data } = await axios.get(`${API_BASE}/api/articles`);
             setArticles(data);
 
             if (!slug && data.length > 0) {
@@ -27,7 +29,7 @@ const ArticlesPage = () => {
     useEffect(() => {
         if (slug) {
             const fetchDetail = async () => {
-                const { data } = await axios.get(`http://localhost:5000/api/articles/${slug}`);
+                const { data } = await axios.get(`${API_BASE}/api/articles/${slug}`);
                 setCurrentArticle(data);
             };
             fetchDetail();

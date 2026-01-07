@@ -1,78 +1,48 @@
 import axios from "axios";
 
-const API_URL = "/api/gejala/";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/gejala/`;
 
-const getToken = () => {
+const getConfig = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    return user ? user.token : null;
-};
-
-// =======================================================
-// CREATE Gejala
-// =======================================================
-const createGejala = async (gejalaData) => {
-    const token = getToken();
-    const config = {
+    return {
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${user?.token}`,
         },
     };
-    // POST request ke /api/gejala
-    const response = await axios.post(API_URL, gejalaData, config);
+};
+
+// CREATE
+const createGejala = async (data) => {
+    const response = await axios.post(API_URL, data, getConfig());
     return response.data;
 };
 
-// =======================================================
-// GET Semua Gejala
-// =======================================================
+// GET ALL
 const getGejalas = async () => {
-    const token = getToken();
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    // GET request ke /api/gejala
-    const response = await axios.get(API_URL, config);
+    const response = await axios.get(API_URL, getConfig());
     return response.data;
 };
 
-// =======================================================
-// DELETE Gejala
-// =======================================================
-const deleteGejala = async (gejalaId) => {
-    const token = getToken();
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    // DELETE request ke /api/gejala/:id
-    const response = await axios.delete(API_URL + gejalaId, config);
+// UPDATE
+const updateGejala = async (data) => {
+    const { id, kode, nama } = data;
+    const response = await axios.put(
+        `${API_URL}${id}`,
+        { kode, nama },
+        getConfig()
+    );
     return response.data;
 };
 
-// =======================================================
-// UPDATE Gejala
-// =======================================================
-const updateGejala = async (gejalaData) => {
-    const { id, kode, nama } = gejalaData;
-    const token = getToken();
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    };
-    // PUT request ke /api/gejala/:id
-    const response = await axios.put(API_URL + id, { kode, nama }, config);
+// DELETE
+const deleteGejala = async (id) => {
+    const response = await axios.delete(`${API_URL}${id}`, getConfig());
     return response.data;
 };
 
-const gejalaService = {
+export default {
     createGejala,
     getGejalas,
-    deleteGejala,
     updateGejala,
+    deleteGejala,
 };
-
-export default gejalaService;
