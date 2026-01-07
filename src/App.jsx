@@ -25,7 +25,12 @@ import GejalaForm from "./pages/admin/gejala/GejalaForm";
 import PenyakitList from "./pages/admin/penyakit/PenyakitList";
 import PenyakitForm from "./pages/admin/penyakit/PenyakitForm";
 
+const API_BASE = import.meta.env.VITE_API_URL;
+
 function App() {
+
+    console.log(API_BASE);
+    
     return (
         <>
             <Router>
