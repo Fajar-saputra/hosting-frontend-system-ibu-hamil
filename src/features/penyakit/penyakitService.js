@@ -2,10 +2,6 @@ import axios from "axios";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api/penyakit/`;
 
-import axios from "axios";
-
-const API_URL = `${import.meta.env.VITE_API_URL}/api/penyakit/`;
-
 const getConfig = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     return {
