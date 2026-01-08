@@ -29,7 +29,7 @@ const API_BASE = import.meta.env.VITE_API_URL;
 
 function App() {
 
-    console.log(API_BASE);
+    console.log(`${API_BASE}/penyakit`);
     
     return (
         <>
